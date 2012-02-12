@@ -1,0 +1,4 @@
+This is the project that follows a tutorial series I'm writing over at http://nistur.com/projects/maratis-3d/tutorials/
+It requires Maratis 3D to be installed at MSDKDIR and uses Premake4 to create build scripts.
+
+For each Tutorial section (as of tutorial 5) I will create a branch so it's easier to pick out which bits are relevant.
