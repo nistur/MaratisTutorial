@@ -27,3 +27,8 @@ GameClock* TutorialGame::GetGameClock()
 {
 	return &m_Clock;
 }
+//----------------------------------------
+MessageSystem* TutorialGame::GetMessageSystem()
+{
+	return &m_MessageSystem;
+}

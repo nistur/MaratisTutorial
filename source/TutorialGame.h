@@ -4,6 +4,7 @@
 #include "MEngine.h"
 
 #include "GameClock.h"
+#include "MessageSystem.h"
 
 //--------------------------------------------
 // TutorialGame
@@ -27,9 +28,12 @@ public:
 	// Public interface
 	//----------------------------------------
 	GameClock* GetGameClock();
+	MessageSystem* GetMessageSystem();
 
 private:
 	GameClock m_Clock;
+
+	MessageSystem m_MessageSystem;
 };
 
 #endif /*__TUTORIAL_GAME_H__*/
