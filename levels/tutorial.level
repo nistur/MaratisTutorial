@@ -52,7 +52,9 @@
 			<Behavior name="Tutorial Controller">
 				<properties 
 					XRange="50.000000"
-					XStep="-1.000000" />
+					XStep="1.000000"
+					ZRange="10.000000"
+					ZStep="1.000000" />
 			</Behavior>
 		</Entity>
 

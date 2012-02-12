@@ -3,6 +3,8 @@
 
 #include "MEngine.h"
 
+#include "GameClock.h"
+
 //--------------------------------------------
 // TutorialGame
 //
@@ -17,9 +19,17 @@ public:
 	~TutorialGame();
 	
 	//----------------------------------------
-	// MGameVirtuals
+	// MGame virtuals
 	//----------------------------------------
 	virtual void update();
+
+	//----------------------------------------
+	// Public interface
+	//----------------------------------------
+	GameClock* GetGameClock();
+
+private:
+	GameClock m_Clock;
 };
 
 #endif /*__TUTORIAL_GAME_H__*/

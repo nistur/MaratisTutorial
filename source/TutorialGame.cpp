@@ -17,8 +17,13 @@ TutorialGame::~TutorialGame()
 //----------------------------------------
 void TutorialGame::update()
 {
-	// for now, all we want to do is make 
-	// sure the Maratis functionality
-	// continues
+	// tick the game clock
+	m_Clock.Update();
+
 	MGame::update();
+}
+//----------------------------------------
+GameClock* TutorialGame::GetGameClock()
+{
+	return &m_Clock;
 }
