@@ -32,6 +32,7 @@
 Timer::Timer(int id)
 :m_ID(id)
 ,m_IsRunning(true)
+,m_TimeMs(0)
 {
 }
 //----------------------------------------

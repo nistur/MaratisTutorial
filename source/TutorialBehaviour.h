@@ -27,6 +27,8 @@
 
 #include "Timer.h"
 
+#include "MessageSystem.h"
+
 #include <MEngine.h>
 
 //--------------------------------------------
@@ -35,7 +37,7 @@
 // Will give our happy little cube some
 // character
 //--------------------------------------------
-class TutorialBehaviour : public MBehavior, public ITimerAction
+class TutorialBehaviour : public MBehavior, public ITimerAction, public Observer
 {
 public:
 	TutorialBehaviour(MObject3d * parentObject);
@@ -62,6 +64,11 @@ public:
 	// ITimerAction virtuals
 	//----------------------------------------
 	void OnTimerComplete(int id);
+
+	//----------------------------------------
+	// Observer virtuals
+	//----------------------------------------
+	void OnMessage(Message message, int param1);
 
 private:
 	// timers

@@ -52,7 +52,7 @@ Message RegisterMessage(const char* message);
 // this macro should be used in header files to
 // expose messages you wish to be sent externally
 #define DECLARE_MESSAGE(msg) \
-	static extern Message msg;
+	extern Message msg;
 
 // REGISTER_MESSAGE
 // this macro should go into the source file
@@ -87,7 +87,9 @@ public:
 	void AttachObserver(Observer* observer);
 	void DetachObserver(Observer* observer);
 
-	void SendMessage(Message message, int param);
+protected:
+	void SendMessage(Message message, int param = 0);
+
 private:
 	typedef std::vector<Observer*>	observerVec;
 	typedef observerVec::iterator	observerVecIter;

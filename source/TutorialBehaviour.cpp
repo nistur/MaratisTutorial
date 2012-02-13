@@ -74,6 +74,8 @@ void TutorialBehaviour::Setup(float step, float delta, float range)
 			m_BounceTimer->SetTimeMs(BOUNCE_TIMEOUT);
 			m_BounceTimer->Start();
 		}
+
+		tutGame->AttachObserver(this);
 	}
 }
 //----------------------------------------
@@ -187,6 +189,10 @@ void TutorialBehaviour::update()
 //----------------------------------------
 void TutorialBehaviour::OnTimerComplete(int id)
 {
+	// we're now using the message from the game
+	// to bounce, so don't listen to the timer
+	// for now
+	/*
 	// timer has finished, just check which one
 	switch(id)
 	{
@@ -194,4 +200,13 @@ void TutorialBehaviour::OnTimerComplete(int id)
 		m_IsBouncing = true;
 		break;
 	};
+	*/
+}
+//----------------------------------------
+void TutorialBehaviour::OnMessage(Message message, int param1)
+{
+	if(message == MESSAGE_TEST)
+	{
+		m_IsBouncing = true;
+	}
 }

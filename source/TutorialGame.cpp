@@ -23,6 +23,12 @@
 */
 
 #include "TutorialGame.h"
+#include "Timer.h"
+
+//----------------------------------------
+// Messages
+//----------------------------------------
+REGISTER_MESSAGE(MESSAGE_TEST);
 
 //----------------------------------------
 // TutorialGame
@@ -44,6 +50,21 @@ void TutorialGame::update()
 	m_Clock.Update();
 
 	MGame::update();
+
+	// quick message system test
+	static Timer testTimer(0);
+	
+	if(testTimer.HasExpired())
+	{
+		testTimer.SetTimeMs(500);
+		testTimer.Start();
+
+		// also, if we've expired, send the message
+		SendMessage(MESSAGE_TEST);
+	}
+
+	testTimer.Update(m_Clock.GetDeltaMs());
+
 }
 //----------------------------------------
 GameClock* TutorialGame::GetGameClock()

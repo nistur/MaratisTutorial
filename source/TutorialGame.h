@@ -30,6 +30,8 @@
 #include "GameClock.h"
 #include "MessageSystem.h"
 
+DECLARE_MESSAGE(MESSAGE_TEST);
+
 //--------------------------------------------
 // TutorialGame
 //
@@ -37,7 +39,7 @@
 // This class should wrap up any game specific
 // functionality
 //--------------------------------------------
-class TutorialGame : public MGame
+class TutorialGame : public MGame, public Subject
 {
 public:
 	TutorialGame();
