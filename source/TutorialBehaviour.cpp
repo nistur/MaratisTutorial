@@ -25,6 +25,22 @@
 #include "TutorialBehaviour.h"
 
 #include "TutorialGame.h"
+#include "InputManager.h"
+
+//----------------------------------------
+// Messages
+//----------------------------------------
+REGISTER_MESSAGE(MESSAGE_SLIDE_START);
+REGISTER_MESSAGE(MESSAGE_SLIDE_END);
+class SlideCommand : public IInputCommand, public Subject
+{
+public:
+	const char* GetKeyName() { return "SPACE"; }
+	const char* GetCommandName() { return "BoxSlide"; }
+	void		OnKeyPressed() { SendMessage(MESSAGE_SLIDE_START); }
+	void		OnKeyReleased() { SendMessage(MESSAGE_SLIDE_END); }
+};
+SlideCommand slideCmd;
 
 //----------------------------------------
 // quick defines
@@ -37,6 +53,7 @@
 TutorialBehaviour::TutorialBehaviour(MObject3d * parentObject)
 :MBehavior(parentObject)
 ,m_IsBouncing(false)
+,m_IsSliding(false)
 {
 	Setup(1.0f, 0, 10.0f);
 }
@@ -45,6 +62,7 @@ TutorialBehaviour::TutorialBehaviour(TutorialBehaviour & behavior,
 							MObject3d * parentObject)
 :MBehavior(parentObject)
 ,m_IsBouncing(false)
+,m_IsSliding(false)
 {
 	Setup(behavior.m_StepX, behavior.m_CurrDeltaX, behavior.m_RangeX);
 }
@@ -76,6 +94,8 @@ void TutorialBehaviour::Setup(float step, float delta, float range)
 		}
 
 		tutGame->AttachObserver(this);
+		tutGame->GetInputManager()->RegisterCommand(&slideCmd);
+		slideCmd.AttachObserver(this);
 	}
 }
 //----------------------------------------
@@ -89,6 +109,8 @@ TutorialBehaviour::~TutorialBehaviour(void)
 		{
 			clock->DestroyTimer(m_BounceTimer);
 		}
+		tutGame->GetInputManager()->UnregisterCommand(&slideCmd);
+		slideCmd.DetachObserver(this);
 	}
 }
 //----------------------------------------
@@ -147,15 +169,12 @@ void TutorialBehaviour::update()
 	if(!parent)
 		return;
 
-	if(MInputContext* input = engine->getInputContext())
+	if(m_IsSliding)
 	{
-		if(input->isKeyPressed("SPACE"))
-		{
-			m_CurrDeltaX += m_StepX;
+		m_CurrDeltaX += m_StepX;
 
-			if( abs(m_CurrDeltaX) >= abs(m_RangeX) )
-				m_StepX = -m_StepX;
-		}
+		if( abs(m_CurrDeltaX) >= abs(m_RangeX) )
+			m_StepX = -m_StepX;
 	}
 
 	// bouncing
@@ -208,5 +227,13 @@ void TutorialBehaviour::OnMessage(Message message, int param1)
 	if(message == MESSAGE_TEST)
 	{
 		m_IsBouncing = true;
+	}
+	else if(message == MESSAGE_SLIDE_START)
+	{
+		m_IsSliding = true;
+	}
+	else if(message == MESSAGE_SLIDE_END)
+	{
+		m_IsSliding = false;
 	}
 }

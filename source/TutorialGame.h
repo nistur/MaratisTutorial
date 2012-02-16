@@ -29,6 +29,7 @@
 
 #include "GameClock.h"
 #include "MessageSystem.h"
+#include "InputManager.h"
 
 DECLARE_MESSAGE(MESSAGE_TEST);
 
@@ -53,13 +54,16 @@ public:
 	//----------------------------------------
 	// Public interface
 	//----------------------------------------
-	GameClock* GetGameClock();
-	MessageSystem* GetMessageSystem();
+	GameClock*		GetGameClock();
+	MessageSystem*	GetMessageSystem();
+	InputManager*	GetInputManager();
 
 private:
-	GameClock m_Clock;
+	GameClock		m_Clock;
 
-	MessageSystem m_MessageSystem;
+	MessageSystem	m_MessageSystem;
+
+	InputManager	m_InputManager;
 };
 
 #endif /*__TUTORIAL_GAME_H__*/

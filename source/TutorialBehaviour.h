@@ -89,6 +89,7 @@ private:
 	MVector3	m_RootPosition;
 	Timer*		m_BounceTimer;
 	bool		m_IsBouncing;
+	bool		m_IsSliding;
 
 	// Private interface
 	void Setup(float step, float delta, float range);

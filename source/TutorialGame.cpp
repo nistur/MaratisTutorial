@@ -49,6 +49,8 @@ void TutorialGame::update()
 	// tick the game clock
 	m_Clock.Update();
 
+	m_InputManager.Update();
+
 	MGame::update();
 
 	// quick message system test
@@ -64,7 +66,6 @@ void TutorialGame::update()
 	}
 
 	testTimer.Update(m_Clock.GetDeltaMs());
-
 }
 //----------------------------------------
 GameClock* TutorialGame::GetGameClock()
@@ -75,4 +76,9 @@ GameClock* TutorialGame::GetGameClock()
 MessageSystem* TutorialGame::GetMessageSystem()
 {
 	return &m_MessageSystem;
+}
+//----------------------------------------
+InputManager* TutorialGame::GetInputManager()
+{
+	return &m_InputManager;
 }
