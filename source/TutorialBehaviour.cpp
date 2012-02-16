@@ -32,14 +32,22 @@
 //----------------------------------------
 REGISTER_MESSAGE(MESSAGE_SLIDE_START);
 REGISTER_MESSAGE(MESSAGE_SLIDE_END);
-class SlideCommand : public IInputCommand, public Subject
+
+// Nice, simple slide command, using the message
+// system, mainly because it's there
+class SlideCommand : public InputCommand, public Subject
 {
 public:
-	const char* GetKeyName() { return "SPACE"; }
+	SlideCommand()
+	{
+		// may as well set the default key here
+		SetKeyName("SPACE");
+	}
 	const char* GetCommandName() { return "BoxSlide"; }
 	void		OnKeyPressed() { SendMessage(MESSAGE_SLIDE_START); }
 	void		OnKeyReleased() { SendMessage(MESSAGE_SLIDE_END); }
 };
+// this should be a member, but it's easier to follow here
 SlideCommand slideCmd;
 
 //----------------------------------------
