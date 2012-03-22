@@ -27,27 +27,20 @@
 #include "TutorialGame.h"
 #include "InputManager.h"
 
+REGISTER_BEHAVIOUR(TutorialBehaviour);
 //----------------------------------------
 // Messages
 //----------------------------------------
 REGISTER_MESSAGE(MESSAGE_SLIDE_START);
 REGISTER_MESSAGE(MESSAGE_SLIDE_END);
-
-// Nice, simple slide command, using the message
-// system, mainly because it's there
-class SlideCommand : public InputCommand, public Subject
+class SlideCommand : public IInputCommand, public Subject
 {
 public:
-	SlideCommand()
-	{
-		// may as well set the default key here
-		SetKeyName("SPACE");
-	}
+	const char* GetKeyName() { return "SPACE"; }
 	const char* GetCommandName() { return "BoxSlide"; }
 	void		OnKeyPressed() { SendMessage(MESSAGE_SLIDE_START); }
 	void		OnKeyReleased() { SendMessage(MESSAGE_SLIDE_END); }
 };
-// this should be a member, but it's easier to follow here
 SlideCommand slideCmd;
 
 //----------------------------------------
@@ -59,7 +52,7 @@ SlideCommand slideCmd;
 // TutorialBehaviour
 //----------------------------------------
 TutorialBehaviour::TutorialBehaviour(MObject3d * parentObject)
-:MBehavior(parentObject)
+:Behaviour(parentObject, GetStaticID())
 ,m_IsBouncing(false)
 ,m_IsSliding(false)
 {
@@ -68,7 +61,7 @@ TutorialBehaviour::TutorialBehaviour(MObject3d * parentObject)
 //----------------------------------------
 TutorialBehaviour::TutorialBehaviour(TutorialBehaviour & behavior, 
 							MObject3d * parentObject)
-:MBehavior(parentObject)
+:Behaviour(parentObject, GetStaticID())
 ,m_IsBouncing(false)
 ,m_IsSliding(false)
 {

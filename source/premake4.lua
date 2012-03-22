@@ -23,8 +23,6 @@ solution "Tutorial"
 		includedirs { os.getenv("MSDKDIR") .. "SDK/MCore/Includes",
 					os.getenv("MSDKDIR") .. "SDK/MEngine/Includes",
 					"."}
-
-		print(os.getenv("MSDKDIR") .. "SDK/MCore/Libs")
 		
 		-- include all the files, including Maratis SDK ones
 		files {
