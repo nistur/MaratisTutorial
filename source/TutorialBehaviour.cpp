@@ -158,6 +158,10 @@ MVariable TutorialBehaviour::getVariable(unsigned int id)
 //----------------------------------------
 void TutorialBehaviour::update()
 {
+	// just a check to see if the behaviour manager is working right
+	if(GetBehaviour<TutorialBehaviour>() != this)
+		return;
+
 	MEngine* engine = MEngine::getInstance();
 
 	MGame* game = engine->getGame();

@@ -1,6 +1,8 @@
 #include "Util.h"
 #include <string>
 
+// BPHash function as found on
+// http://www.partow.net/programming/hashfunctions/
 unsigned int Util::Hash(const char* str)
 {
 	unsigned int len = strlen(str);
