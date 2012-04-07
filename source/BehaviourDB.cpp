@@ -22,12 +22,57 @@ Behaviour::~Behaviour()
 	// We're not needed any more? Make sure we don't stay in
 	// the database
 	g_BehaviourDB.RemoveBehaviour(getParentObject(), this);
+
+	std::map<unsigned int, MVariable*>::iterator iVar = m_Variables.begin();
+
+	for(iVar; iVar != m_Variables.end(); ++iVar)
+	  delete iVar->second;
+
+	m_Variables.clear();
+}
+//--------------------------------------------
+unsigned int Behaviour::getVariablesNumber()
+{
+  return m_Variables.size();
+}
+//--------------------------------------------
+MVariable Behaviour::getVariable(unsigned int id)
+{
+  if(id > m_Variables.size())
+    return MVariable("NULL", NULL, M_VARIABLE_NULL);
+
+  std::map<unsigned int, MVariable*>::iterator iVar = m_Variables.begin();
+
+  for(int i = 0; i < id; ++i)
+    ++iVar;
+
+  return *iVar->second;  
 }
 //--------------------------------------------
 Behaviour* Behaviour::GetBehaviour(ID behaviour)
 {
 	// Just pass the request onto the database
 	return g_BehaviourDB.GetBehaviour(getParentObject(), behaviour);
+}
+//--------------------------------------------
+void Behaviour::RegisterVariable(MVariable var)
+{
+  unsigned int hash = Util::Hash(var.getName());
+
+  m_Variables[hash] = new MVariable(var.getName(), var.getPointer(), var.getType());
+}
+//--------------------------------------------
+void Behaviour::UnregisterVariable(MVariable var)
+{
+  unsigned int hash = Util::Hash(var.getName());
+
+  std::map<unsigned int, MVariable*>::iterator iVar = m_Variables.find(hash);
+
+  if(iVar != m_Variables.end())
+  {
+    delete iVar->second;
+    m_Variables.erase(iVar);
+  }
 }
 
 //--------------------------------------------

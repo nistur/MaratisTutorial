@@ -30,7 +30,10 @@ public:
 	// This probably won't be used as we need the
 	// Behaviour ID to be static
 	virtual ID GetID() { return 0; }
-	
+
+	// MBehavior virtuals
+	virtual unsigned int getVariablesNumber();
+	virtual MVariable getVariable(unsigned int id);
 protected:
 	// This is where the magic happens
 	// from within any custom behaviour, we should
@@ -43,6 +46,12 @@ protected:
 		return (T*)GetBehaviour(T::GetStaticID());
 	}
 	Behaviour* GetBehaviour(ID behaviour);
+
+	void RegisterVariable(MVariable var);
+	void UnregisterVariable(MVariable var);
+
+ private:
+	std::map<unsigned int, MVariable*> m_Variables;
 };
 
 // Some helpwe macros to keep things tidy.

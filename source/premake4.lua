@@ -42,6 +42,8 @@ solution "Tutorial"
 		links { "MCore", "MEngine" }
 		
 		-- put the library back into the main project directory
+
+		targetprefix ""
 		targetdir "../"
 		
 		configuration "Debug"

@@ -98,6 +98,13 @@ void TutorialBehaviour::Setup(float step, float delta, float range)
 		tutGame->GetInputManager()->RegisterCommand(&slideCmd);
 		slideCmd.AttachObserver(this);
 	}
+
+	
+	RegisterVariable(MVariable("XRange", &m_RangeX, M_VARIABLE_FLOAT));
+	RegisterVariable(MVariable("XStep", &m_StepX, M_VARIABLE_FLOAT));
+	RegisterVariable(MVariable("ZRange", &m_RangeZ, M_VARIABLE_FLOAT));
+	RegisterVariable(MVariable("ZStep", &m_StepZ, M_VARIABLE_FLOAT));
+	
 }
 //----------------------------------------
 TutorialBehaviour::~TutorialBehaviour(void)
@@ -128,32 +135,6 @@ MBehavior* TutorialBehaviour::getNew(MObject3d* parentObject)
 MBehavior* TutorialBehaviour::getCopy(MObject3d* parentObject)
 {
 	return new TutorialBehaviour(*this, parentObject);
-}
-//----------------------------------------
-unsigned int TutorialBehaviour::getVariablesNumber()
-{
-	return 4;
-}
-//----------------------------------------
-MVariable TutorialBehaviour::getVariable(unsigned int id)
-{
-	switch(id)
-	{
-	case 0:
-		return MVariable("XRange", &m_RangeX, M_VARIABLE_FLOAT);
-		break;
-	case 1:
-		return MVariable("XStep", &m_StepX, M_VARIABLE_FLOAT);
-		break;
-	case 2:
-		return MVariable("ZRange", &m_RangeZ, M_VARIABLE_FLOAT);
-		break;
-	case 3:
-		return MVariable("ZStep", &m_StepZ, M_VARIABLE_FLOAT);
-		break;
-	default:
-		return MVariable("NULL", NULL, M_VARIABLE_NULL);
-	}
 }
 //----------------------------------------
 void TutorialBehaviour::update()

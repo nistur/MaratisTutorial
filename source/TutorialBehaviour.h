@@ -54,9 +54,6 @@ public:
 	static const char* getStaticName() { return "Tutorial Controller"; }
 	const char* getName() { return getStaticName(); }
 
-	unsigned int getVariablesNumber();
-	MVariable getVariable(unsigned int id);
-
 	void update();
 	void runEvent(int param){}
 

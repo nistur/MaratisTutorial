@@ -1,5 +1,6 @@
+
 #include "Util.h"
-#include <string>
+#include <cstring>
 
 // BPHash function as found on
 // http://www.partow.net/programming/hashfunctions/
