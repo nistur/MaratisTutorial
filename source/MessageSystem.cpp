@@ -82,6 +82,23 @@ Message RegisterMessage(const char* message)
 	return 0;
 }
 
+Observer::~Observer()
+{
+    std::vector<Subject*>::iterator iSub;
+    for(iSub = m_Subjects.begin(); iSub != m_Subjects.end(); ++iSub)
+	(*iSub)->DetachObserver(this);
+    
+    m_Subjects.clear();
+}
+
+void Observer::AttachToSubject(Subject* subject)
+{
+    std::vector<Subject*>::iterator iSub = std::find(m_Subjects.begin(), m_Subjects.end(), subject);
+    
+    if(iSub != m_Subjects.end())
+	m_Subjects.erase(iSub);
+}
+
 void Subject::AttachObserver(Observer* observer)
 {
 	// if we're not already being observed by
@@ -92,6 +109,7 @@ void Subject::AttachObserver(Observer* observer)
 	{
 		m_Observers.push_back(observer);
 	}
+	observer->AttachToSubject(this);
 }
 void Subject::DetachObserver(Observer* observer)
 {

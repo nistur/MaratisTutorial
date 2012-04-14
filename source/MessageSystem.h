@@ -59,6 +59,9 @@ Message RegisterMessage(const char* message);
 #define REGISTER_MESSAGE(msg) \
 	Message msg = RegisterMessage(#msg);
 
+#include <vector>
+
+class Subject;
 //----------------------------------------
 // Observer
 // 
@@ -70,10 +73,15 @@ Message RegisterMessage(const char* message);
 class Observer
 {
 public:
-	virtual void OnMessage(Message message, int param) = 0;
-};
+    ~Observer();
 
-#include <vector>
+    virtual void OnMessage(Message message, int param) = 0;
+    
+    void AttachToSubject(Subject* subject);
+
+private:
+    std::vector<Subject*> m_Subjects;
+};
 
 //----------------------------------------
 // Subject

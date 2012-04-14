@@ -117,6 +117,7 @@ TutorialBehaviour::~TutorialBehaviour(void)
 		{
 			clock->DestroyTimer(m_BounceTimer);
 		}
+		tutGame->DetachObserver(this);
 		tutGame->GetInputManager()->UnregisterCommand(&slideCmd);
 		slideCmd.DetachObserver(this);
 	}
